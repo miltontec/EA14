@@ -10,15 +10,15 @@
 #property version   "5.00"
 #property strict
 
-#include "SupportResistance.mqh"
-#include "AccumulationZones.mqh"
-#include "PatternMemory.mqh"
-#include "BreakoutDetector_fixed.mqh"
-#include "InstitutionalPlanFinder_fixed.mqh"
-#include "MetaLearningSystem.mqh"
-#include "OrderExecution.mqh"
-#include "EpisodicMemorySystem.mqh"
-#include "RegimeDetectionSystem.mqh"
+#include <SupportResistance.mqh>
+#include <AccumulationZones.mqh>
+#include <PatternMemory.mqh>
+#include <BreakoutDetector_fixed.mqh>
+#include <InstitutionalPlanFinder_fixed.mqh>
+#include <MetaLearningSystem.mqh>
+#include <OrderExecution.mqh>
+#include <EpisodicMemorySystem.mqh>
+#include <RegimeDetectionSystem.mqh>
 
 //+------------------------------------------------------------------+
 //| ENUMERACIONES MEJORADAS                                          |
@@ -72,16 +72,16 @@ enum ENUM_COMPONENT_TYPE {
     COMPONENT_NEUTRAL = 12
 };
 
-// Tipos de indicadores (renombrados para evitar conflicto con built-ins)
+// Tipos de indicadores alineados con los módulos incluidos
 enum ENUM_INDICATOR_TYPE {
     IND_SUPPORT_RESIST = 0,
-    IND_ML_SYSTEM = 1,
-    IND_MOMENTUM_VOTING = 2,  // Renombrado de IND_MOMENTUM
-    IND_RSI_VOTING = 3,       // Renombrado de IND_RSI
-    IND_VOLUME = 4,
-    IND_PATTERN = 5,
-    IND_INSTITUTIONAL = 6,
-    IND_SENTIMENT = 7,
+    IND_ACCUMULATION_ZONES = 1,
+    IND_PATTERN_MEMORY = 2,
+    IND_BREAKOUT_DETECTOR = 3,
+    IND_INSTITUTIONAL_PLAN = 4,
+    IND_META_LEARNING = 5,
+    IND_ORDER_EXECUTION = 6,
+    IND_EPISODIC_MEMORY = 7,
     IND_TOTAL = 8
 };
 
@@ -884,8 +884,9 @@ public:
         
         // Inicializar especializaciones
         string indicatorNames[] = {
-            "Support/Resistance", "ML System", "Momentum", "RSI", 
-            "Volume", "Pattern", "Institutional", "Sentiment"
+            "Support/Resistance", "Accumulation Zones", "Pattern Memory",
+            "Breakout Detector", "Institutional Plan", "Meta Learning",
+            "Order Execution", "Episodic Memory"
         };
         
         for(int i = 0; i < 8; i++) {

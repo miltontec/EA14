@@ -78,8 +78,8 @@ enum ENUM_COMPONENT_TYPE {
 enum ENUM_INDICATOR_TYPE {
     IND_SUPPORT_RESIST     = 0, // Corresponde a SupportResistance.mqh
     IND_META_LEARNING      = 1, // Corresponde a MetaLearningSystem.mqh (Consenso)
-    IND_MOMENTUM           = 2, // Agente de Momentum (Contextual)
-    IND_RSI                = 3, // Agente RSI (Contextual)
+    IND_CTX_MOMENTUM       = 2, // Agente de Momentum (Contextual)
+    IND_CTX_RSI            = 3, // Agente RSI (Contextual)
     IND_ACCUMULATION       = 4, // Corresponde a AccumulationZones.mqh
     IND_PATTERN            = 5, // Corresponde a PatternMemory.mqh
     IND_INSTITUTIONAL      = 6, // Corresponde a InstitutionalPlanFinder_fixed.mqh

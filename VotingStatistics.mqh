@@ -74,17 +74,17 @@ enum ENUM_COMPONENT_TYPE {
     COMPONENT_NEUTRAL = 12
 };
 
-// Tipos de indicadores alineados con los módulos incluidos
+// Tipos de indicadores alineados con la lógica de TradingStrategy.mq5
 enum ENUM_INDICATOR_TYPE {
-    IND_SUPPORT_RESIST = 0,
-    IND_ACCUMULATION_ZONES = 1,
-    IND_PATTERN_MEMORY = 2,
-    IND_BREAKOUT_DETECTOR = 3,
-    IND_INSTITUTIONAL_PLAN = 4,
-    IND_META_LEARNING = 5,
-    IND_ORDER_EXECUTION = 6,
-    IND_EPISODIC_MEMORY = 7,
-    IND_TOTAL = 8
+    IND_SUPPORT_RESIST     = 0, // Corresponde a SupportResistance.mqh
+    IND_META_LEARNING      = 1, // Corresponde a MetaLearningSystem.mqh (Consenso)
+    IND_MOMENTUM           = 2, // Agente de Momentum (Contextual)
+    IND_RSI                = 3, // Agente RSI (Contextual)
+    IND_ACCUMULATION       = 4, // Corresponde a AccumulationZones.mqh
+    IND_PATTERN            = 5, // Corresponde a PatternMemory.mqh
+    IND_INSTITUTIONAL      = 6, // Corresponde a InstitutionalPlanFinder_fixed.mqh
+    IND_BREAKOUT           = 7, // Corresponde a BreakoutDetector_fixed.mqh
+    IND_TOTAL              = 8
 };
 
 // Nivel de expertise mejorado
@@ -884,11 +884,16 @@ public:
             }
         }
         
-        // Inicializar especializaciones
+        // Inicializar especializaciones con los nombres correctos de los Includes
         string indicatorNames[] = {
-            "Support/Resistance", "Accumulation Zones", "Pattern Memory",
-            "Breakout Detector", "Institutional Plan", "Meta Learning",
-            "Order Execution", "Episodic Memory"
+            "Support/Resistance",   // ID 0
+            "Meta Learning",        // ID 1
+            "Momentum Agent",       // ID 2
+            "RSI Logic",            // ID 3
+            "Accumulation Zones",   // ID 4
+            "Pattern Memory",       // ID 5
+            "Institutional Plan",   // ID 6
+            "Breakout Detector"     // ID 7
         };
         
         for(int i = 0; i < 8; i++) {
@@ -1064,6 +1069,11 @@ public:
         double dirStrength = m_performanceMatrix[indicatorId][ses][vol][dir].metrics.GetDirectionalStrength(direction);
         double expertiseMultiplier = m_performanceMatrix[indicatorId][ses][vol][dir].GetExpertiseMultiplier();
         double trustScore = m_specializations[indicatorId].trustScore;
+
+        // Excepción: el MetaLearning (ID 1) ya incorpora ponderación interna
+        if(indicatorId == IND_META_LEARNING) {
+            return dirStrength;
+        }
 
         // Score considerando el momentum actual
         double momentumBonus = (m_performanceMatrix[indicatorId][ses][vol][dir].metrics.performanceMomentum > 0) ? 1.1 : 0.9;

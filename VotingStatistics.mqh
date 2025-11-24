@@ -52,6 +52,8 @@ enum ENUM_MARKET_DIRECTION {
 };
 
 // Dirección de voto
+#ifndef __ENUM_VOTE_DIRECTION__
+#define __ENUM_VOTE_DIRECTION__
 enum ENUM_VOTE_DIRECTION {
     VOTE_STRONG_SELL = -2,
     VOTE_SELL = -1,
@@ -59,6 +61,7 @@ enum ENUM_VOTE_DIRECTION {
     VOTE_BUY = 1,
     VOTE_STRONG_BUY = 2
 };
+#endif
 
 // Tipos de componentes/agentes del sistema
 enum ENUM_COMPONENT_TYPE {

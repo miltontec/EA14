@@ -10,6 +10,25 @@
 #property version   "5.00"
 #property strict
 
+#ifndef __ENUM_VOTE_DIRECTION__
+#define __ENUM_VOTE_DIRECTION__
+enum ENUM_VOTE_DIRECTION {
+    VOTE_STRONG_SELL = -2,
+    VOTE_SELL = -1,
+    VOTE_NEUTRAL = 0,
+    VOTE_BUY = 1,
+    VOTE_STRONG_BUY = 2
+};
+#endif
+
+#include <SupportResistance.mqh>
+#include <AccumulationZones.mqh>
+#include <PatternMemory.mqh>
+#include <BreakoutDetector_fixed.mqh>
+#include <InstitutionalPlanFinder_fixed.mqh>
+#include <MetaLearningSystem.mqh>
+#include <OrderExecution.mqh>
+#include <EpisodicMemorySystem.mqh>
 #include <RegimeDetectionSystem.mqh>
 
 //+------------------------------------------------------------------+
@@ -43,15 +62,6 @@ enum ENUM_MARKET_DIRECTION {
     DIR_STRONG_BULLISH = 2    // Fuertemente alcista
 };
 
-// Dirección de voto
-enum ENUM_VOTE_DIRECTION {
-    VOTE_STRONG_SELL = -2,
-    VOTE_SELL = -1,
-    VOTE_NEUTRAL = 0,
-    VOTE_BUY = 1,
-    VOTE_STRONG_BUY = 2
-};
-
 // Tipos de componentes/agentes del sistema
 enum ENUM_COMPONENT_TYPE {
     COMPONENT_SUPPORT_RESIST = 0,
@@ -64,17 +74,17 @@ enum ENUM_COMPONENT_TYPE {
     COMPONENT_NEUTRAL = 12
 };
 
-// Tipos de indicadores (renombrados para evitar conflicto con built-ins)
+// Tipos de indicadores alineados con la lógica de TradingStrategy.mq5
 enum ENUM_INDICATOR_TYPE {
-    IND_SUPPORT_RESIST = 0,
-    IND_ML_SYSTEM = 1,
-    IND_MOMENTUM_VOTING = 2,  // Renombrado de IND_MOMENTUM
-    IND_RSI_VOTING = 3,       // Renombrado de IND_RSI
-    IND_VOLUME = 4,
-    IND_PATTERN = 5,
-    IND_INSTITUTIONAL = 6,
-    IND_SENTIMENT = 7,
-    IND_TOTAL = 8
+    IND_SUPPORT_RESIST     = 0, // Corresponde a SupportResistance.mqh
+    IND_META_LEARNING      = 1, // Corresponde a MetaLearningSystem.mqh (Consenso)
+    IND_CTX_MOMENTUM       = 2, // Agente de Momentum (Contextual)
+    IND_CTX_RSI            = 3, // Agente RSI (Contextual)
+    IND_ACCUMULATION       = 4, // Corresponde a AccumulationZones.mqh
+    IND_PATTERN            = 5, // Corresponde a PatternMemory.mqh
+    IND_INSTITUTIONAL      = 6, // Corresponde a InstitutionalPlanFinder_fixed.mqh
+    IND_BREAKOUT           = 7, // Corresponde a BreakoutDetector_fixed.mqh
+    IND_TOTAL              = 8
 };
 
 // Nivel de expertise mejorado
@@ -874,10 +884,16 @@ public:
             }
         }
         
-        // Inicializar especializaciones
+        // Inicializar especializaciones con los nombres correctos de los Includes
         string indicatorNames[] = {
-            "Support/Resistance", "ML System", "Momentum", "RSI", 
-            "Volume", "Pattern", "Institutional", "Sentiment"
+            "Support/Resistance",   // ID 0
+            "Meta Learning",        // ID 1
+            "Momentum Agent",       // ID 2
+            "RSI Logic",            // ID 3
+            "Accumulation Zones",   // ID 4
+            "Pattern Memory",       // ID 5
+            "Institutional Plan",   // ID 6
+            "Breakout Detector"     // ID 7
         };
         
         for(int i = 0; i < 8; i++) {
@@ -1053,6 +1069,11 @@ public:
         double dirStrength = m_performanceMatrix[indicatorId][ses][vol][dir].metrics.GetDirectionalStrength(direction);
         double expertiseMultiplier = m_performanceMatrix[indicatorId][ses][vol][dir].GetExpertiseMultiplier();
         double trustScore = m_specializations[indicatorId].trustScore;
+
+        // Excepción: el MetaLearning (ID 1) ya incorpora ponderación interna
+        if(indicatorId == IND_META_LEARNING) {
+            return dirStrength;
+        }
 
         // Score considerando el momentum actual
         double momentumBonus = (m_performanceMatrix[indicatorId][ses][vol][dir].metrics.performanceMomentum > 0) ? 1.1 : 0.9;

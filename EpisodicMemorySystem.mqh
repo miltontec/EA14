@@ -8,7 +8,6 @@
 #property copyright "Episodic Memory System v1.0"
 #property version   "1.00"
 #include <MetaLearningSystem.mqh>
-#include <VotingStatistics.mqh>
 #include <SupportResistance.mqh>
 #include <PatternMemory.mqh>
 

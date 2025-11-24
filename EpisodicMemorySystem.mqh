@@ -7,24 +7,10 @@
 
 #property copyright "Episodic Memory System v1.0"
 #property version   "1.00"
+#include <VotingCommon.mqh>
 #include <MetaLearningSystem.mqh>
-#include <VotingStatistics.mqh>
 #include <SupportResistance.mqh>
 #include <PatternMemory.mqh>
-
-
-// Declaración de respaldo para ENUM_VOTE_DIRECTION si aún no está disponible
-#ifndef __ENUM_VOTE_DIRECTION__
-#define __ENUM_VOTE_DIRECTION__
-enum ENUM_VOTE_DIRECTION
-  {
-   VOTE_STRONG_SELL = -2,
-   VOTE_SELL        = -1,
-   VOTE_NEUTRAL     = 0,
-   VOTE_BUY         = 1,
-   VOTE_STRONG_BUY  = 2
-  };
-#endif
 
 
 //+------------------------------------------------------------------+

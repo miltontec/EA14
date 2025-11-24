@@ -16,6 +16,8 @@
 #include "BreakoutDetector_fixed.mqh"
 #include "InstitutionalPlanFinder_fixed.mqh"
 #include "MetaLearningSystem.mqh"
+#include "OrderExecution.mqh"
+#include "EpisodicMemorySystem.mqh"
 #include "RegimeDetectionSystem.mqh"
 
 //+------------------------------------------------------------------+

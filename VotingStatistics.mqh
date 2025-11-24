@@ -10,7 +10,17 @@
 #property version   "5.00"
 #property strict
 
-#include <VotingCommon.mqh>
+#ifndef __ENUM_VOTE_DIRECTION__
+#define __ENUM_VOTE_DIRECTION__
+enum ENUM_VOTE_DIRECTION {
+    VOTE_STRONG_SELL = -2,
+    VOTE_SELL = -1,
+    VOTE_NEUTRAL = 0,
+    VOTE_BUY = 1,
+    VOTE_STRONG_BUY = 2
+};
+#endif
+
 #include <SupportResistance.mqh>
 #include <AccumulationZones.mqh>
 #include <PatternMemory.mqh>
@@ -51,8 +61,6 @@ enum ENUM_MARKET_DIRECTION {
     DIR_BULLISH = 1,          // Alcista
     DIR_STRONG_BULLISH = 2    // Fuertemente alcista
 };
-
-// Dirección de voto disponible vía VotingCommon.mqh
 
 // Tipos de componentes/agentes del sistema
 enum ENUM_COMPONENT_TYPE {

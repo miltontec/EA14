@@ -10,6 +10,12 @@
 #property version   "5.00"
 #property strict
 
+#include <SupportResistance.mqh>
+#include <AccumulationZones.mqh>
+#include <PatternMemory.mqh>
+#include <BreakoutDetector_fixed.mqh>
+#include <InstitutionalPlanFinder_fixed.mqh>
+#include <MetaLearningSystem.mqh>
 #include <RegimeDetectionSystem.mqh>
 
 //+------------------------------------------------------------------+
